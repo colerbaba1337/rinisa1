@@ -1,73 +1,76 @@
-import Head from 'next/head'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import YouTubeCardSubs from '../components/youtube/YouTubeCardSubs'
-import YouTubeCardViews from '../components/youtube/YouTubeCardViews'
-import YouTubeCardVids from '../components/youtube/YouTubeCardVids'
-import GitHubCardFollowers from '../components/github/GitHubCardFollowers'
-import GitHubCardProjects from '../components/github/GitHubCardProjects'
-import GitHubCardForks from '../components/github/GitHubCardForks'
-import StravaCardMiles from '../components/strava/StravaCardMiles'
-import StravaCardRuns from '../components/strava/StravaCardRuns'
-import StravaCardElapsedTime from '../components/strava/StravaCardElapsedTime'
-
-export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
-      <div className="container">
-        <h1 style={{ padding: '100px 0 10px 0' }} className="text-center">Ben's Dashboard</h1>
-        <Row>
-          <Col md>
-            <YouTubeCardSubs />
-            <br />
-          </Col>
-          <Col md>
-            <YouTubeCardViews />
-            <br />
-          </Col>
-          <Col md>
-            <YouTubeCardVids />
-            <br />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col md>
-            <GitHubCardForks />
-            <br />
-          </Col>
-          <Col md>
-            <GitHubCardProjects />
-            <br />
-          </Col>
-          <Col md>
-            <GitHubCardFollowers />
-            <br />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col md>
-            <StravaCardMiles />
-            <br />
-          </Col>
-          <Col md>
-            <StravaCardRuns />
-            <br />
-          </Col>
-          <Col md>
-            <StravaCardElapsedTime />
-            <br />  
-          </Col>
-        </Row>
-
-        <p className="text-center">These numbers are not accurate. This dashboard was for tutorial purposes only. If you are using this as your own dashboard and using your own API keys, it works.</p>
-        <p className="text-center">Ex: <code>const numProjects = data?.numProjects ?? 56</code></p>
-        <p className="text-center">The data is fetched as normal, but since the response is null, the '??' allows me to default to 56.</p>
-      </div>
+<?php
+/**
+ * The main template file.
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ * @package Newsup
+ */
+get_header(); ?>
+<!--==================== Newsup breadcrumb section ====================-->
+            <div id="content" class="container-fluid home">
+                <!--row-->
+                <div class="row">
+                    <!--col-md-8-->
+                    <?php 
+                    $newsup_content_layout = esc_attr(get_theme_mod('newsup_content_layout','align-content-right'));
+                    if($newsup_content_layout == "align-content-left")
+                    { ?>
+                    <aside class="col-md-4">
+                        <?php get_sidebar();?>
+                    </aside>
+                    <?php }
+                    elseif($newsup_content_layout == "grid-left-sidebar")
+                    { ?>
+                    <aside class="col-md-4">
+                        <?php get_sidebar();?>
+                    </aside>
+                    <?php }
+                    if($newsup_content_layout == "align-content-right"){ ?>
+                    <div class="col-md-8">
+                        <?php get_template_part('content',''); ?>
+                    </div>
+                    <?php } elseif($newsup_content_layout == "align-content-left") { ?>
+                    <div class="col-md-8">
+                        <?php get_template_part('content',''); ?>
+                    </div>
+                    <?php } elseif($newsup_content_layout == "full-width-content") { ?>
+                     <div class="col-md-12">
+                        <?php get_template_part('content',''); ?>
+                    </div>
+                     <?php }  if($newsup_content_layout == "grid-left-sidebar"){ ?>
+                    <div class="col-md-8">
+                        <?php get_template_part('content','grid'); ?>
+                    </div>
+                    <?php } elseif($newsup_content_layout == "grid-right-sidebar") { ?>
+                    <div class="col-md-8">
+                        <?php get_template_part('content','grid'); ?>
+                    </div>
+                    <?php } elseif($newsup_content_layout == "grid-fullwidth") { ?>
+                     <div class="col-md-12">
+                       <?php get_template_part('content','grid'); ?>
+                    </div>
+                     <?php }  ?>
+                    
+                    <!--/col-md-8-->
+                    <?php if($newsup_content_layout == "align-content-right")  { ?>
+                    <!--col-md-4-->
+                    <aside class="col-md-4">
+                        <?php get_sidebar();?>
+                    </aside>
+                    <!--/col-md-4-->
+                    <?php } 
+                    elseif($newsup_content_layout == "grid-right-sidebar")
+                    { ?>
+                    <aside class="col-md-4">
+                        <?php get_sidebar();?>
+                    </aside>
+                    <?php }?>
+                </div>
+                <!--/row-->
     </div>
-  )
-}
+<?php
+get_footer();
+?>
